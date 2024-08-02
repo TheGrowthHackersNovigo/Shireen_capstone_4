@@ -1,13 +1,14 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="ComparingVendorDetails" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
-    <x:Property Name="dt_VendorDetails" Type="InArgument(sd:DataTable)" />
-    <x:Property Name="index" Type="OutArgument(x:Int32)" />
-    <x:Property Name="IsAMatch" Type="InOutArgument(x:Boolean)" />
     <x:Property Name="in_TransactionItem" Type="InArgument(sd:DataRow)" />
-    <x:Property Name="IsCityExists" Type="InOutArgument(x:Boolean)" />
-    <x:Property Name="ListOfCities" Type="InArgument(scg:List(x:String))" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_dt_VendorDetails" Type="InArgument(sd:DataTable)" />
+    <x:Property Name="out_index" Type="OutArgument(x:Int32)" />
+    <x:Property Name="io_IsAMatch" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="io_IsCityExists" Type="InOutArgument(x:Boolean)" />
+    <x:Property Name="in_ListOfCities" Type="InArgument(scg:List(x:String))" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>853.3333333333334,481.33333333333326</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>854,1872.6666666666667</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -39,6 +40,7 @@
       <x:String>GlobalVariablesNamespace</x:String>
       <x:String>GlobalConstantsNamespace</x:String>
       <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Reflection</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -107,56 +109,65 @@
       <AssemblyReference>System.ServiceModel.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ComparingVendorDetails" sap:VirtualizedContainerService.HintSize="784,1679.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_16">
+  <Sequence sap2010:Annotation.AnnotationText="Comparing the Obtained vendor details with the extracted individual vendor details, Extractracting the values for the Vendor, Address and City and comparing with the values from the previously extracted table from the Display All Vendors page (which is taken as input).&#xD;&#xA;- If the values are not matching, this will be categorized as a Business Rule Exception;&#xD;&#xA;- If the values does not belong to the group{&quot;&quot;Brasov , 'Bucuresti&quot;', '&quot;Koln&quot;,&quot;&quot;Moscow,&quot;&quot;Berlin&quot;'\, this will be categorized as the second Business Rule Exception, We can only process requests from these cities. &#xD;&#xA;- If no Business Rule Exception, Appending the resulting datatable from each page into an CSV file&#xD;&#xA;" DisplayName="ComparingVendorDetails" sap:VirtualizedContainerService.HintSize="784,2270.6666666666665" sap2010:WorkflowViewState.IdRef="Sequence_16">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[index]" DataTable="[dt_VendorDetails]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="722,1591.3333333333333" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
+    <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="[out_index]" DataTable="[in_dt_VendorDetails]" DisplayName="For Each Row in Data Table : Individual vendor details" sap:VirtualizedContainerService.HintSize="722,2054" sap2010:WorkflowViewState.IdRef="ForEachRow_2">
       <ui:ForEachRow.Body>
         <ActivityAction x:TypeArguments="sd:DataRow">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentVendor" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="688,1400.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_15">
+          <Sequence DisplayName="Body : Comparison" sap:VirtualizedContainerService.HintSize="688,1863.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_15">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Assign sap:VirtualizedContainerService.HintSize="626,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign sap2010:Annotation.AnnotationText="Comparing the Obtained vendor details with the extracted individual vendor details, Extractracting the values for the Vendor, Address and City and comparing with the values from the previously extracted table from the Display All Vendors page (which is taken as input).&#xD;&#xA;" DisplayName="Assign : If its a match" sap:VirtualizedContainerService.HintSize="626,252.66666666666666" sap2010:WorkflowViewState.IdRef="Assign_3">
               <Assign.To>
-                <OutArgument x:TypeArguments="x:Boolean">[IsAMatch]</OutArgument>
+                <OutArgument x:TypeArguments="x:Boolean">[io_IsAMatch]</OutArgument>
               </Assign.To>
               <Assign.Value>
                 <InArgument x:TypeArguments="x:Boolean">[(in_TransactionItem("Vendor").Equals(CurrentVendor("Vendor"))) andalso (in_TransactionItem("Address").Equals(CurrentVendor("Address"))) AndAlso (in_TransactionItem("City").Equals(CurrentVendor("City")))]</InArgument>
               </Assign.Value>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
             </Assign>
-            <If Condition="[IsAMatch]" sap:VirtualizedContainerService.HintSize="626,1195.3333333333333" sap2010:WorkflowViewState.IdRef="If_4">
+            <If Condition="[io_IsAMatch]" DisplayName="If : Everything matches" sap:VirtualizedContainerService.HintSize="626,1522.6666666666667" sap2010:WorkflowViewState.IdRef="If_4">
               <If.Then>
-                <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="592,830" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                <Sequence sap2010:Annotation.AnnotationText="If the values does not belong to the group{&quot;&quot;Brasov , 'Bucuresti&quot;', '&quot;Koln&quot;,&quot;&quot;Moscow,&quot;&quot;Berlin&quot;'\, this will be categorized as the second Business Rule Exception, We can only process requests from these cities. " DisplayName="Then : Check for cities" sap:VirtualizedContainerService.HintSize="592,1157.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_11">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Assign sap:VirtualizedContainerService.HintSize="530,57.333333333333336" sap2010:WorkflowViewState.IdRef="Assign_4">
+                  <Assign DisplayName="Assign : If city exists" sap:VirtualizedContainerService.HintSize="530,117.33333333333333" sap2010:WorkflowViewState.IdRef="Assign_4">
                     <Assign.To>
-                      <OutArgument x:TypeArguments="x:Boolean">[IsCityExists]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Boolean">[io_IsCityExists]</OutArgument>
                     </Assign.To>
                     <Assign.Value>
-                      <InArgument x:TypeArguments="x:Boolean">[ListOfCities.Contains(CurrentVendor("City").ToString)]</InArgument>
+                      <InArgument x:TypeArguments="x:Boolean">[in_ListOfCities.Contains(CurrentVendor("City").ToString)]</InArgument>
                     </Assign.Value>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </Assign>
-                  <If Condition="[IsCityExists]" sap:VirtualizedContainerService.HintSize="530,684.6666666666666" sap2010:WorkflowViewState.IdRef="If_3">
+                  <If Condition="[io_IsCityExists]" DisplayName="If : The city also matches" sap:VirtualizedContainerService.HintSize="530,906.6666666666666" sap2010:WorkflowViewState.IdRef="If_3">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -164,13 +175,14 @@
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="496,319.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                      <Sequence sap2010:Annotation.AnnotationText="If no Business Rule Exception, Appending the resulting datatable from each page into an CSV file" DisplayName="Then : Results to CSV" sap:VirtualizedContainerService.HintSize="496,541.3333333333334" sap2010:WorkflowViewState.IdRef="Sequence_12">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <ui:AppendWriteCsvFile PathResource="{x:Null}" AddHeaders="True" CsvAction="Append" DataTable="[dt_VendorDetails]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Write CSV" FilePath="Data\Output\VendorDetails.csv" sap:VirtualizedContainerService.HintSize="434,231.33333333333334" sap2010:WorkflowViewState.IdRef="AppendWriteCsvFile_2" ShouldQuote="True">
+                        <ui:AppendWriteCsvFile PathResource="{x:Null}" AddHeaders="True" CsvAction="Append" DataTable="[in_dt_VendorDetails]" Delimitator="Comma" DelimitatorForViewModel="Comma" DisplayName="Write CSV : Vendor details" FilePath="Data\Output\VendorDetails.csv" sap:VirtualizedContainerService.HintSize="434,240.66666666666666" sap2010:WorkflowViewState.IdRef="AppendWriteCsvFile_2" ShouldQuote="True">
                           <sap:WorkflowViewStateService.ViewState>
                             <scg:Dictionary x:TypeArguments="x:String, x:Object">
                               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -178,29 +190,30 @@
                             </scg:Dictionary>
                           </sap:WorkflowViewStateService.ViewState>
                         </ui:AppendWriteCsvFile>
+                        <ui:LogMessage DisplayName="Log Message:Detail appended to csv" sap:VirtualizedContainerService.HintSize="434,167.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Detail appended to CSV&quot;]" />
                       </Sequence>
                     </If.Then>
                     <If.Else>
-                      <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,202.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                      <Sequence DisplayName="Else : Second Business Exception" sap:VirtualizedContainerService.HintSize="416,202.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_13">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                           </scg:Dictionary>
                         </sap:WorkflowViewStateService.ViewState>
-                        <Throw DisplayName="Throw : Second BRE" Exception="[new BusinessRuleException(&quot;Second BRE : City does not exists&quot;)]" sap:VirtualizedContainerService.HintSize="354,114.66666666666667" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                        <Throw DisplayName="Throw : Second BRE" Exception="[new BusinessRuleException(in_Config(&quot;SecondBRE&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="354,114.66666666666667" sap2010:WorkflowViewState.IdRef="Throw_1" />
                       </Sequence>
                     </If.Else>
                   </If>
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,202.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_14">
+                <Sequence DisplayName="Else: First Business Exception" sap:VirtualizedContainerService.HintSize="416,202.66666666666666" sap2010:WorkflowViewState.IdRef="Sequence_14">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <Throw DisplayName="Throw : First BRE" Exception="[new BusinessRuleException(&quot;First BRE : Vendors values are not matching&quot;)]" sap:VirtualizedContainerService.HintSize="354,114.66666666666667" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                  <Throw DisplayName="Throw : First BRE" Exception="[new BusinessRuleException(in_Config(&quot;FirstBRE&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="354,114.66666666666667" sap2010:WorkflowViewState.IdRef="Throw_2" />
                 </Sequence>
               </If.Else>
             </If>

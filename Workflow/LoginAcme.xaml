@@ -5,7 +5,7 @@
   <VisualBasic.Settings>
     <x:Null />
   </VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1730,2752</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>854,454</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>LoginAcme_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
@@ -45,6 +45,7 @@
       <x:String>System.ComponentModel</x:String>
       <x:String>UiPath.UIAutomationNext.Contracts</x:String>
       <x:String>UiPath.UIAutomationNext.Models.CV</x:String>
+      <x:String>System.Security</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -101,154 +102,155 @@
       <AssemblyReference>System.Linq.Expressions</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
       <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="LoginAcme" sap:VirtualizedContainerService.HintSize="1740,2687" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="First it will check whether the user has already logged in in that case it will logout, and then it will try to login by adding the credentials from the Orchestrator asset then try to login to the ACME website&#xD;&#xA;" DisplayName="LoginAcme" sap:VirtualizedContainerService.HintSize="512,692" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">False</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Browser Chrome: ACME System 1 - Log In" sap:VirtualizedContainerService.HintSize="1678,2599" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V2" WindowResize="Maximize">
+    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" DisplayName="Use Browser Chrome: ACME System 1 - Log In" sap:VirtualizedContainerService.HintSize="450,528" sap2010:WorkflowViewState.IdRef="NApplicationCard_1" InteractionMode="DebuggerApi" OpenMode="IfNotOpen" ScopeGuid="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V2" WindowResize="Maximize">
       <uix:NApplicationCard.Body>
         <ActivityAction x:TypeArguments="x:Object">
           <ActivityAction.Argument>
             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
           </ActivityAction.Argument>
-          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="1644,2359" sap2010:WorkflowViewState.IdRef="Sequence_5">
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="416,286.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_5">
             <sap:WorkflowViewStateService.ViewState>
               <scg:Dictionary x:TypeArguments="x:String, x:Object">
                 <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               </scg:Dictionary>
             </sap:WorkflowViewStateService.ViewState>
-            <Sequence DisplayName="Acme login" sap:VirtualizedContainerService.HintSize="1582,2271" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <uix:NCheckState sap2010:Annotation.AnnotationText="Checking if the user has already logged in , if it is then logging out " DisplayName="Check App State 'Log Out'" sap:VirtualizedContainerService.HintSize="354,117.33333333333333" sap2010:WorkflowViewState.IdRef="NCheckState_3" Timeout="[Convert.ToDouble(in_Config(&quot;TimeOut&quot;))]" Version="V3">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears : Login button" sap:VirtualizedContainerService.HintSize="450,274.6666666666667" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Log Out'" sap:VirtualizedContainerService.HintSize="388,184" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V3">
+                    <uix:NClick.Target>
+                      <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/work-items?page=10" CVScreenId="babb8fa3-df08-4ae7-bdc8-4ba989b48925" CvTextArea="1327, 147, 52, 16" CvTextArgument="Log Out" CvType="Text" DesignTimeRectangle="1313, 129, 80, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' type='' class='' check:innerText='Log Out' /&gt;" Guid="c75b802f-434b-4771-a963-4a0525132bcc" InformativeScreenshot="8e91b97f87786757a23b50324cbe74c4.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Work Items' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                    </uix:NClick.Target>
+                  </uix:NClick>
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear : Login button" sap:VirtualizedContainerService.HintSize="450,262" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message:Already logged out" sap:VirtualizedContainerService.HintSize="388,171.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Its already logged out&quot;]" />
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" CVScreenId="61c630a8-302f-4f64-a447-334565c32dbd" CvTextArea="1319, 147, 51, 16" CvTextArgument="Log Out" CvType="Text" DesignTimeRectangle="1305, 129, 80, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' type='' class='' check:innerText='Log Out' /&gt;" Guid="198a0f1c-c210-459e-8b0c-34d24c342e52" InformativeScreenshot="60afd3b48f9e34f035392b2626b9519f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NCheckState.Target>
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
-              <uix:NCheckState DisplayName="Check App State 'Log Out'" sap:VirtualizedContainerService.HintSize="1520,597" sap2010:WorkflowViewState.IdRef="NCheckState_3" Timeout="5" Version="V3">
-                <uix:NCheckState.IfExists>
-                  <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="450,308" sap2010:WorkflowViewState.IdRef="Sequence_8">
+            </uix:NCheckState>
+            <uix:NCheckState sap2010:Annotation.AnnotationText="Logging in to ACME website" DisplayName="Check App State 'Login Home'" sap:VirtualizedContainerService.HintSize="354,81.33333333333333" sap2010:WorkflowViewState.IdRef="NCheckState_1" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Timeout="[Convert.ToDouble(in_Config(&quot;TimeOut&quot;))]" Version="V3">
+              <uix:NCheckState.IfExists>
+                <Sequence DisplayName="Target appears: Login page" sap:VirtualizedContainerService.HintSize="450,970.6666666666666" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,254.66666666666666" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Text="shireen.m@novigosolutions.com" Version="V3">
+                    <uix:NTypeInto.Target>
+                      <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvElementArea="306, 390, 488, 39" CvType="InputBox" DesignTimeRectangle="308, 392, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl id='email' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='form-control ' aaname='Email:' /&gt;" Guid="0bfc674d-5b08-4473-a8e8-8f81ac91400d" InformativeScreenshot="dbe0a9fbe1034264ae19575910effc73.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
+                        <uix:TargetAnchorable.Anchors>
+                          <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                            <uix:Target CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvTextArea="307, 370, 43, 13" CvTextArgument="Email:" CvType="Text" DesignTimeRectangle="308, 367, 42, 20" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='LABEL' type='' class='' aaname='Email:' check:innerText='Email:' /&gt;" Guid="29bb5fff-2a28-40bf-9655-f6acf783378f" SearchSteps="Selector" />
+                          </scg:List>
+                        </uix:TargetAnchorable.Anchors>
+                      </uix:TargetAnchorable>
+                    </uix:NTypeInto.Target>
+                  </uix:NTypeInto>
+                  <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Password'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="388,254.66666666666666" sap2010:WorkflowViewState.IdRef="NTypeInto_2" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Text="Shireenm@29" Version="V3">
+                    <uix:NTypeInto.Target>
+                      <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvElementArea="306, 464, 488, 38" CvType="InputBox" DesignTimeRectangle="308, 466, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBoxPassword" FullSelectorArgument="&lt;webctrl id='password' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='password' tag='INPUT' type='password' class='form-control ' aaname='Password:' /&gt;" Guid="f5b036e1-95af-4971-aafe-95b70b356c44" InformativeScreenshot="c369043152ad0c80e583782baf287c6f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
+                        <uix:TargetAnchorable.Anchors>
+                          <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
+                            <uix:Target CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvTextArea="307, 444, 71, 13" CvTextArgument="Password:" CvType="Text" DesignTimeRectangle="308, 441, 71, 20" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Password:' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Password:' tag='LABEL' type='' class='' check:innerText='Password:' /&gt;" Guid="fba56675-f805-42d5-99ec-172f5d5fb029" SearchSteps="Selector" />
+                          </scg:List>
+                        </uix:TargetAnchorable.Anchors>
+                      </uix:TargetAnchorable>
+                    </uix:NTypeInto.Target>
+                  </uix:NTypeInto>
+                  <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Login'" sap:VirtualizedContainerService.HintSize="388,191.33333333333334" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V3">
+                    <uix:NClick.Target>
+                      <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="bcfede08-c56f-4ae0-af6a-7b3cf41bc6f0" CvElementArea="306, 554, 63, 37" CvTextArea="320, 565, 36, 17" CvTextArgument="Login" CvType="Button" DesignTimeRectangle="308, 556, 60, 34" DesignTimeScaleFactor="1" ElementType="Button" FullSelectorArgument="&lt;webctrl tag='BUTTON' type='submit' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BUTTON' type='submit' class='btn btn-primary' aaname='                             Login                         ' check:innerText='Login' /&gt;" Guid="1f0ebdc5-e611-4723-b580-7f3d5734a322" InformativeScreenshot="c478f6a62a26196236b07d0306084c0c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                    </uix:NClick.Target>
+                  </uix:NClick>
+                  <uix:NCheckState sap2010:Annotation.AnnotationText="If the Home page appears it is conidered as successful login otherwise it will throw a system exception saying invalid credentials username and password&#xD;&#xA;" DisplayName="Check App State 'Dashboard Home'" sap:VirtualizedContainerService.HintSize="388,179.33333333333334" sap2010:WorkflowViewState.IdRef="NCheckState_2" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Timeout="[Convert.ToDouble(in_Config(&quot;TimeOut&quot;))]" Version="V3">
+                    <uix:NCheckState.IfExists>
+                      <Sequence DisplayName="Target appears : Home page" sap:VirtualizedContainerService.HintSize="450,255.33333333333337" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <ui:LogMessage DisplayName="Log Message : Successful login" sap:VirtualizedContainerService.HintSize="388,167.33333333333334" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Login successful&quot;]" />
+                      </Sequence>
+                    </uix:NCheckState.IfExists>
+                    <uix:NCheckState.IfNotExists>
+                      <Sequence DisplayName="Target does not appear : Home page" sap:VirtualizedContainerService.HintSize="450,208" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                        <Throw DisplayName="Throw : SE invalid credentials" Exception="[new SystemException(in_Config(&quot;InvalidCredentials&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="388,117.33333333333333" sap2010:WorkflowViewState.IdRef="Throw_2" />
+                      </Sequence>
+                    </uix:NCheckState.IfNotExists>
+                    <uix:NCheckState.Target>
+                      <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" DesignTimeRectangle="8, 95, 1583, 773" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl tag='BODY' visibleinnertext='ACME System 1&amp;#xA;Home&amp;#xA;Switch to new theme&amp;#xA;Log Out&amp;#xA;Dashboard&amp;#xA;Home Dashboard&amp;#xA;Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;&amp;#xA;If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;&amp;#xA; User options&amp;#xA; Work Items&amp;#xA; Accounts&amp;#xA; Checks&amp;#xA; Vendors&amp;#xA; Invoices&amp;#xA; Internal Invoices&amp;#xA; Reports&amp;#xA; Students&amp;#xA; Health Care&amp;#xA; Employees&amp;#xA; Bank&amp;#xA; Customer Service&amp;#xA;&amp;#xA;Copyright © 2024 ACME Systems' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BODY' visibleinnertext='ACME System 1&amp;#xA;Home&amp;#xA;Switch to new theme&amp;#xA;Log Out&amp;#xA;Dashboard&amp;#xA;Home Dashboard&amp;#xA;Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;&amp;#xA;If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;&amp;#xA; User options&amp;#xA; Work Items&amp;#xA; Accounts&amp;#xA; Checks&amp;#xA; Vendors&amp;#xA; Invoices&amp;#xA; Internal Invoices&amp;#xA; Reports&amp;#xA; Students&amp;#xA; Health Care&amp;#xA; Employees&amp;#xA; Bank&amp;#xA; Customer Service&amp;#xA;&amp;#xA;Copyright © 2024 ACME Systems' type='' class='' aaname='                                 ' check:text='Toggle navigation&amp;#xA;                &amp;#xA;                &amp;#xA;                &amp;#xA;            &amp;#xA;            ACME System 1&amp;#xA;        &amp;#xA;        &amp;#xA;        &amp;#xA;            &amp;#xA;                &amp;#xA;                    Home&amp;#xA;                &amp;#xA;                &amp;#xA;                                            Switch to new theme&amp;#xA;                                    &amp;#xA;                                                    &amp;#xA;                    &amp;#xA;                        Log Out&amp;#xA;                    &amp;#xA;                            &amp;#xA;        &amp;#xA;    &amp;#xA;&amp;#xA;    &amp;#xA;        &amp;#xA;    &amp;#xA;        &amp;#xA;                                                Dashboard&amp;#xA;                                    &amp;#xA;        &amp;#xA;                                                            Home&amp;#xA;                        Dashboard&amp;#xA;                                            &amp;#xA;    &amp;#xA;&amp;#xA;&amp;#xA;&amp;#xA;        &amp;#xA;                Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;    If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 User options&amp;#xA;                &amp;#xA;                                                                        Download Client and Support&amp;#xA;                                                                                                Reset test data&amp;#xA;                                                                                                Change password&amp;#xA;                                                                                                Check training assignments&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Work Items&amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Accounts&amp;#xA;                &amp;#xA;                                                                        Add account modification&amp;#xA;                                                                                                View account history&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Checks&amp;#xA;                &amp;#xA;                                                                        Search for Check&amp;#xA;                                                                                                Submit Check Copy&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Vendors&amp;#xA;                &amp;#xA;                                                                        Search for Vendor&amp;#xA;                                                                                                Add Vendor&amp;#xA;                                                                                                Download Resource Report&amp;#xA;                                                                                                Resource Order&amp;#xA;                                                                                                Download Vendor List&amp;#xA;                                                                                                Vendor Inventory&amp;#xA;                                                                                                Upload Order&amp;#xA;                                                                                                Vendors Stock&amp;#xA;                                                                                                Create Order&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Invoices&amp;#xA;                &amp;#xA;                                                                        Search for Invoice&amp;#xA;                                                                                                Add Invoice Details&amp;#xA;                                                                                                Delete Invoice&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Internal Invoices&amp;#xA;                &amp;#xA;                                                                        Download Monthly Invoices&amp;#xA;                                                                                                Download Full Invoice Report&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Reports&amp;#xA;                &amp;#xA;                                                                        Download Monthly Report&amp;#xA;                                                                                                Upload Yearly Report&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Students&amp;#xA;                &amp;#xA;                                                                        Download Enrollment Report&amp;#xA;                                                                                                Download Result Report&amp;#xA;                                                                                                Score Card&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Health Care&amp;#xA;                &amp;#xA;                                                                        Download Daily Appointment&amp;#xA;                                                                                                Download Treatment Report&amp;#xA;                                                                                                National Insurance Planning&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Employees&amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Bank&amp;#xA;                &amp;#xA;                                                                        Add Account&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Customer Service&amp;#xA;                    &amp;#xA;    &amp;#xA;&amp;#xA;&amp;#xA;    function track(link){&amp;#xA;        var url = $(link).attr(&amp;apos;href&amp;apos;);&amp;#xA;        if((url.indexOf(&amp;quot;download-client&amp;quot;) &amp;gt;= 0) || (url.indexOf(&amp;quot;check-assignment&amp;quot;) &amp;gt;= 0)){&amp;#xA;            demo.track(&amp;apos;https://acme-test.uipath.com/track&amp;apos;, &amp;apos;I5qgd13TKcretZzJpEJboMF4zsUxxmgmzaEK8MaX&amp;apos;, url);&amp;#xA;        }&amp;#xA;    }&amp;#xA;&amp;#xA;&amp;#xA;    &amp;#xA;            &amp;#xA;    &amp;#xA;        &amp;#xA;            &amp;#xA;            Copyright © new Date().getFullYear()&amp;gt;2010&amp;amp;&amp;amp;document.write(new Date().getFullYear());2024 ACME Systems' /&gt;" Guid="1b4a6787-3b66-451b-8d87-a30016f55ee4" InformativeScreenshot="b989dda91c77827b109ec9e188f1009b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+                    </uix:NCheckState.Target>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Log Out'" sap:VirtualizedContainerService.HintSize="388,218" sap2010:WorkflowViewState.IdRef="NClick_2" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V3">
-                      <uix:NClick.Target>
-                        <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/work-items?page=10" CVScreenId="babb8fa3-df08-4ae7-bdc8-4ba989b48925" CvTextArea="1327, 147, 52, 16" CvTextArgument="Log Out" CvType="Text" DesignTimeRectangle="1313, 129, 80, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' type='' class='' check:innerText='Log Out' /&gt;" Guid="c75b802f-434b-4771-a963-4a0525132bcc" InformativeScreenshot="8e91b97f87786757a23b50324cbe74c4.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Work Items' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
-                      </uix:NClick.Target>
-                      <uix:NClick.VerifyOptions>
-                        <uix:VerifyExecutionOptions DisplayName="{x:Null}" Mode="Appears">
-                          <uix:VerifyExecutionOptions.Retry>
-                            <InArgument x:TypeArguments="x:Boolean" />
-                          </uix:VerifyExecutionOptions.Retry>
-                          <uix:VerifyExecutionOptions.Timeout>
-                            <InArgument x:TypeArguments="x:Double" />
-                          </uix:VerifyExecutionOptions.Timeout>
-                        </uix:VerifyExecutionOptions>
-                      </uix:NClick.VerifyOptions>
-                    </uix:NClick>
-                  </Sequence>
-                </uix:NCheckState.IfExists>
-                <uix:NCheckState.IfNotExists>
-                  <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="450,256" sap2010:WorkflowViewState.IdRef="Sequence_9">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,168" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[&quot;Its already logged out&quot;]" />
-                  </Sequence>
-                </uix:NCheckState.IfNotExists>
-                <uix:NCheckState.Target>
-                  <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" CVScreenId="61c630a8-302f-4f64-a447-334565c32dbd" CvTextArea="1319, 147, 51, 16" CvTextArgument="Log Out" CvType="Text" DesignTimeRectangle="1305, 129, 80, 50" DesignTimeScaleFactor="1" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Log Out' parentid='bs-example-navbar-collapse-1' tag='A' type='' class='' check:innerText='Log Out' /&gt;" Guid="198a0f1c-c210-459e-8b0c-34d24c342e52" InformativeScreenshot="60afd3b48f9e34f035392b2626b9519f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
-                </uix:NCheckState.Target>
-                <sap:WorkflowViewStateService.ViewState>
-                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
-                  </scg:Dictionary>
-                </sap:WorkflowViewStateService.ViewState>
-              </uix:NCheckState>
-              <uix:NCheckState DisplayName="Check App State 'Login Home'" sap:VirtualizedContainerService.HintSize="1520,1561" sap2010:WorkflowViewState.IdRef="NCheckState_1" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Timeout="5" Version="V3">
-                <uix:NCheckState.IfExists>
-                  <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="1016,1279" sap2010:WorkflowViewState.IdRef="Sequence_2">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Email'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="954,250" sap2010:WorkflowViewState.IdRef="NTypeInto_1" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Text="shireen.m@novigosolutions.com" Version="V3">
-                      <uix:NTypeInto.Target>
-                        <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvElementArea="306, 390, 488, 39" CvType="InputBox" DesignTimeRectangle="308, 392, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBox" FullSelectorArgument="&lt;webctrl id='email' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='email' tag='INPUT' type='email' class='form-control ' aaname='Email:' /&gt;" Guid="0bfc674d-5b08-4473-a8e8-8f81ac91400d" InformativeScreenshot="dbe0a9fbe1034264ae19575910effc73.png" IsResponsive="True" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
-                          <uix:TargetAnchorable.Anchors>
-                            <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                              <uix:Target CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvTextArea="307, 370, 43, 13" CvTextArgument="Email:" CvType="Text" DesignTimeRectangle="308, 367, 42, 20" ElementType="Text" FullSelectorArgument="&lt;webctrl tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='LABEL' type='' class='' aaname='Email:' check:innerText='Email:' /&gt;" Guid="29bb5fff-2a28-40bf-9655-f6acf783378f" SearchSteps="Selector" />
-                            </scg:List>
-                          </uix:TargetAnchorable.Anchors>
-                        </uix:TargetAnchorable>
-                      </uix:NTypeInto.Target>
-                    </uix:NTypeInto>
-                    <uix:NTypeInto ActivateBefore="True" ClickBeforeMode="Single" DisplayName="Type Into 'Password'" EmptyFieldMode="SingleLine" sap:VirtualizedContainerService.HintSize="954,250" sap2010:WorkflowViewState.IdRef="NTypeInto_2" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Text="Shireenm@29" Version="V3">
-                      <uix:NTypeInto.Target>
-                        <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvElementArea="306, 464, 488, 38" CvType="InputBox" DesignTimeRectangle="308, 466, 485, 34" DesignTimeScaleFactor="1" ElementType="InputBoxPassword" FullSelectorArgument="&lt;webctrl id='password' tag='INPUT' /&gt;" FuzzySelectorArgument="&lt;webctrl id='password' tag='INPUT' type='password' class='form-control ' aaname='Password:' /&gt;" Guid="f5b036e1-95af-4971-aafe-95b70b356c44" InformativeScreenshot="c369043152ad0c80e583782baf287c6f.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="FuzzySelector, CV" Version="V4" Visibility="Interactive">
-                          <uix:TargetAnchorable.Anchors>
-                            <scg:List x:TypeArguments="uix:ITarget" Capacity="1">
-                              <uix:Target CVScreenId="363a8d75-c7db-409e-88d1-e00c9ee08fd9" CvTextArea="307, 444, 71, 13" CvTextArgument="Password:" CvType="Text" DesignTimeRectangle="308, 441, 71, 20" ElementType="Text" FullSelectorArgument="&lt;webctrl aaname='Password:' tag='LABEL' /&gt;" FuzzySelectorArgument="&lt;webctrl aaname='Password:' tag='LABEL' type='' class='' check:innerText='Password:' /&gt;" Guid="fba56675-f805-42d5-99ec-172f5d5fb029" SearchSteps="Selector" />
-                            </scg:List>
-                          </uix:TargetAnchorable.Anchors>
-                        </uix:TargetAnchorable>
-                      </uix:NTypeInto.Target>
-                    </uix:NTypeInto>
-                    <uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click 'Login'" sap:VirtualizedContainerService.HintSize="954,189" sap2010:WorkflowViewState.IdRef="NClick_1" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Version="V3">
-                      <uix:NClick.Target>
-                        <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" CVScreenId="bcfede08-c56f-4ae0-af6a-7b3cf41bc6f0" CvElementArea="306, 554, 63, 37" CvTextArea="320, 565, 36, 17" CvTextArgument="Login" CvType="Button" DesignTimeRectangle="308, 556, 60, 34" DesignTimeScaleFactor="1" ElementType="Button" FullSelectorArgument="&lt;webctrl tag='BUTTON' type='submit' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BUTTON' type='submit' class='btn btn-primary' aaname='                             Login                         ' check:innerText='Login' /&gt;" Guid="1f0ebdc5-e611-4723-b580-7f3d5734a322" InformativeScreenshot="c478f6a62a26196236b07d0306084c0c.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
-                      </uix:NClick.Target>
-                    </uix:NClick>
-                    <uix:NCheckState DisplayName="Check App State 'Dashboard Home'" sap:VirtualizedContainerService.HintSize="954,500" sap2010:WorkflowViewState.IdRef="NCheckState_2" ScopeIdentifier="0fe9a22b-1c3f-45ad-ba98-699fb8104fb7" Timeout="5" Version="V3">
-                      <uix:NCheckState.IfExists>
-                        <Sequence DisplayName="Target appears" sap:VirtualizedContainerService.HintSize="450,258" sap2010:WorkflowViewState.IdRef="Sequence_6">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="388,168" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Login successful&quot;]" />
-                        </Sequence>
-                      </uix:NCheckState.IfExists>
-                      <uix:NCheckState.IfNotExists>
-                        <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="450,205" sap2010:WorkflowViewState.IdRef="Sequence_7">
-                          <sap:WorkflowViewStateService.ViewState>
-                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                            </scg:Dictionary>
-                          </sap:WorkflowViewStateService.ViewState>
-                          <Throw Exception="[new SystemException(&quot;Username and password is incorrect&quot;)]" sap:VirtualizedContainerService.HintSize="388,115" sap2010:WorkflowViewState.IdRef="Throw_2" />
-                        </Sequence>
-                      </uix:NCheckState.IfNotExists>
-                      <uix:NCheckState.Target>
-                        <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/" DesignTimeRectangle="8, 95, 1583, 773" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl tag='BODY' visibleinnertext='ACME System 1&amp;#xA;Home&amp;#xA;Switch to new theme&amp;#xA;Log Out&amp;#xA;Dashboard&amp;#xA;Home Dashboard&amp;#xA;Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;&amp;#xA;If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;&amp;#xA; User options&amp;#xA; Work Items&amp;#xA; Accounts&amp;#xA; Checks&amp;#xA; Vendors&amp;#xA; Invoices&amp;#xA; Internal Invoices&amp;#xA; Reports&amp;#xA; Students&amp;#xA; Health Care&amp;#xA; Employees&amp;#xA; Bank&amp;#xA; Customer Service&amp;#xA;&amp;#xA;Copyright © 2024 ACME Systems' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='BODY' visibleinnertext='ACME System 1&amp;#xA;Home&amp;#xA;Switch to new theme&amp;#xA;Log Out&amp;#xA;Dashboard&amp;#xA;Home Dashboard&amp;#xA;Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;&amp;#xA;If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;&amp;#xA; User options&amp;#xA; Work Items&amp;#xA; Accounts&amp;#xA; Checks&amp;#xA; Vendors&amp;#xA; Invoices&amp;#xA; Internal Invoices&amp;#xA; Reports&amp;#xA; Students&amp;#xA; Health Care&amp;#xA; Employees&amp;#xA; Bank&amp;#xA; Customer Service&amp;#xA;&amp;#xA;Copyright © 2024 ACME Systems' type='' class='' aaname='                                 ' check:text='Toggle navigation&amp;#xA;                &amp;#xA;                &amp;#xA;                &amp;#xA;            &amp;#xA;            ACME System 1&amp;#xA;        &amp;#xA;        &amp;#xA;        &amp;#xA;            &amp;#xA;                &amp;#xA;                    Home&amp;#xA;                &amp;#xA;                &amp;#xA;                                            Switch to new theme&amp;#xA;                                    &amp;#xA;                                                    &amp;#xA;                    &amp;#xA;                        Log Out&amp;#xA;                    &amp;#xA;                            &amp;#xA;        &amp;#xA;    &amp;#xA;&amp;#xA;    &amp;#xA;        &amp;#xA;    &amp;#xA;        &amp;#xA;                                                Dashboard&amp;#xA;                                    &amp;#xA;        &amp;#xA;                                                            Home&amp;#xA;                        Dashboard&amp;#xA;                                            &amp;#xA;    &amp;#xA;&amp;#xA;&amp;#xA;&amp;#xA;        &amp;#xA;                Welcome, shireen.m@novigosolutions.com to System 1.&amp;#xA;    If this is your first time logging in, please make sure to go to User Options -&amp;gt; Reset Test Data&amp;#xA;    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 User options&amp;#xA;                &amp;#xA;                                                                        Download Client and Support&amp;#xA;                                                                                                Reset test data&amp;#xA;                                                                                                Change password&amp;#xA;                                                                                                Check training assignments&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Work Items&amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Accounts&amp;#xA;                &amp;#xA;                                                                        Add account modification&amp;#xA;                                                                                                View account history&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Checks&amp;#xA;                &amp;#xA;                                                                        Search for Check&amp;#xA;                                                                                                Submit Check Copy&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Vendors&amp;#xA;                &amp;#xA;                                                                        Search for Vendor&amp;#xA;                                                                                                Add Vendor&amp;#xA;                                                                                                Download Resource Report&amp;#xA;                                                                                                Resource Order&amp;#xA;                                                                                                Download Vendor List&amp;#xA;                                                                                                Vendor Inventory&amp;#xA;                                                                                                Upload Order&amp;#xA;                                                                                                Vendors Stock&amp;#xA;                                                                                                Create Order&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Invoices&amp;#xA;                &amp;#xA;                                                                        Search for Invoice&amp;#xA;                                                                                                Add Invoice Details&amp;#xA;                                                                                                Delete Invoice&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Internal Invoices&amp;#xA;                &amp;#xA;                                                                        Download Monthly Invoices&amp;#xA;                                                                                                Download Full Invoice Report&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Reports&amp;#xA;                &amp;#xA;                                                                        Download Monthly Report&amp;#xA;                                                                                                Upload Yearly Report&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Students&amp;#xA;                &amp;#xA;                                                                        Download Enrollment Report&amp;#xA;                                                                                                Download Result Report&amp;#xA;                                                                                                Score Card&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Health Care&amp;#xA;                &amp;#xA;                                                                        Download Daily Appointment&amp;#xA;                                                                                                Download Treatment Report&amp;#xA;                                                                                                National Insurance Planning&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Employees&amp;#xA;                    &amp;#xA;            &amp;#xA;                        &amp;#xA;                 Bank&amp;#xA;                &amp;#xA;                                                                        Add Account&amp;#xA;                                                            &amp;#xA;                    &amp;#xA;            &amp;#xA;                            &amp;#xA;                         Customer Service&amp;#xA;                    &amp;#xA;    &amp;#xA;&amp;#xA;&amp;#xA;    function track(link){&amp;#xA;        var url = $(link).attr(&amp;apos;href&amp;apos;);&amp;#xA;        if((url.indexOf(&amp;quot;download-client&amp;quot;) &amp;gt;= 0) || (url.indexOf(&amp;quot;check-assignment&amp;quot;) &amp;gt;= 0)){&amp;#xA;            demo.track(&amp;apos;https://acme-test.uipath.com/track&amp;apos;, &amp;apos;I5qgd13TKcretZzJpEJboMF4zsUxxmgmzaEK8MaX&amp;apos;, url);&amp;#xA;        }&amp;#xA;    }&amp;#xA;&amp;#xA;&amp;#xA;    &amp;#xA;            &amp;#xA;    &amp;#xA;        &amp;#xA;            &amp;#xA;            Copyright © new Date().getFullYear()&amp;gt;2010&amp;amp;&amp;amp;document.write(new Date().getFullYear());2024 ACME Systems' /&gt;" Guid="1b4a6787-3b66-451b-8d87-a30016f55ee4" InformativeScreenshot="b989dda91c77827b109ec9e188f1009b.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Dashboard' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
-                      </uix:NCheckState.Target>
-                    </uix:NCheckState>
-                  </Sequence>
-                </uix:NCheckState.IfExists>
-                <uix:NCheckState.IfNotExists>
-                  <Sequence DisplayName="Target does not appear" sap:VirtualizedContainerService.HintSize="450,205" sap2010:WorkflowViewState.IdRef="Sequence_3">
-                    <sap:WorkflowViewStateService.ViewState>
-                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-                      </scg:Dictionary>
-                    </sap:WorkflowViewStateService.ViewState>
-                    <Throw Exception="[new SystemException(&quot;Page not loading&quot;)]" sap:VirtualizedContainerService.HintSize="388,115" sap2010:WorkflowViewState.IdRef="Throw_1" />
-                  </Sequence>
-                </uix:NCheckState.IfNotExists>
-                <uix:NCheckState.Target>
-                  <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" DesignTimeRectangle="293, 311, 515, 279" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl class='col-md-6' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl class='col-md-6' tag='DIV' type='' aaname='                                            ' check:innerText='To continue, please authenticate here&amp;#xD;&amp;#xA;Email:&amp;#xD;&amp;#xA;Password:&amp;#xD;&amp;#xA; Remember Me&amp;#xD;&amp;#xA;Login Forgot Your Password?' /&gt;" Guid="693dab30-58f8-488f-a23e-5d3c63edb50a" InformativeScreenshot="e0648c22344ca01c3a05ef5c3ce342a2.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
-                </uix:NCheckState.Target>
-              </uix:NCheckState>
-            </Sequence>
+                  </uix:NCheckState>
+                </Sequence>
+              </uix:NCheckState.IfExists>
+              <uix:NCheckState.IfNotExists>
+                <Sequence DisplayName="Target does not appear: Login page" sap:VirtualizedContainerService.HintSize="450,208" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <Throw DisplayName="Throw : Login page not loading" Exception="[new SystemException(in_Config(&quot;LoginPageNotLoading&quot;).ToString)]" sap:VirtualizedContainerService.HintSize="388,117.33333333333333" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </Sequence>
+              </uix:NCheckState.IfNotExists>
+              <uix:NCheckState.Target>
+                <uix:TargetAnchorable BrowserURL="https://acme-test.uipath.com/login" DesignTimeRectangle="293, 311, 515, 279" DesignTimeScaleFactor="1" FullSelectorArgument="&lt;webctrl class='col-md-6' tag='DIV' /&gt;" FuzzySelectorArgument="&lt;webctrl class='col-md-6' tag='DIV' type='' aaname='                                            ' check:innerText='To continue, please authenticate here&amp;#xD;&amp;#xA;Email:&amp;#xD;&amp;#xA;Password:&amp;#xD;&amp;#xA; Remember Me&amp;#xD;&amp;#xA;Login Forgot Your Password?' /&gt;" Guid="693dab30-58f8-488f-a23e-5d3c63edb50a" InformativeScreenshot="e0648c22344ca01c3a05ef5c3ce342a2.png" ScopeSelectorArgument="&lt;html app='chrome.exe' title='ACME System 1 - Log In' /&gt;" SearchSteps="Selector" Version="V4" Visibility="Interactive" />
+              </uix:NCheckState.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </uix:NCheckState>
           </Sequence>
         </ActivityAction>
       </uix:NApplicationCard.Body>
